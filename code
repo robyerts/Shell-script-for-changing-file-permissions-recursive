@@ -6,6 +6,8 @@ while read -p "DIrectory: " D;do
 	echo "Not a directory ">&2
 done
 
+#------- Recursive function ------------
+
 function f {
 
 local P=$1
@@ -27,5 +29,6 @@ fi
 done
 done
 }
+#----------------------------
 
 f $D
