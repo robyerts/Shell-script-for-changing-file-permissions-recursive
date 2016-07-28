@@ -1,0 +1,31 @@
+#!/bin/bash
+while read -p "DIrectory: " D;do
+	if [ -d $D ]; then
+		break
+	fi
+	echo "Not a directory ">&2
+done
+
+function f {
+
+local P=$1
+ls -l $P | grep  "^-.w..w..w." |awk '{print $9}' | while read A;do
+R="`find $P -type f |grep "\/$A$"`"
+echo $R 
+`chmod a-w $R `
+done
+
+ls -l $P | grep "^d" |awk '{print $9}' | while read A;do
+R="`find $P -type d |grep "\/$A$"`" 
+for i in $R/*;do
+if [ "`basename $i`" = "*" ]; then
+			break
+else
+	f $R
+	break
+fi
+done
+done
+}
+
+f $D
